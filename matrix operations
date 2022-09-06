@@ -1,0 +1,136 @@
+package dls1;
+import java.util.*;
+public class matrix_op {
+	static Scanner s=new Scanner(System.in);
+	static void check(int n,int m) {
+		if(n==m) {
+			System.out.println("Its a square matrix");
+		}
+		else {
+			System.out.println("It is not a square matrix");
+		}
+	}
+	
+		// excepting the array and displaying it simultaneously after the entry of elements
+		public static int[][] getArr(int n,int m){
+		System.out.println("enter the elements of the array:");
+		Scanner sc=new Scanner(System.in);
+		int[][]arr1= new int[n][m];
+			for(int i=0;i<n;i++) {
+				for(int j=0;j<m;j++) {
+				arr1[i][j]=s.nextInt();
+			}
+	}
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+			System.out.print(arr1[i][j] + " ");
+			}
+		  System.out.println();
+		}
+		return arr1;
+	}
+
+	static void addArr(int[][]arr1,int[][]arr2,int n,int m) {
+		System.out.println("sum of the array is:");
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+			System.out.print((arr1[i][j]+arr2[i][j])+" ");
+			}
+		System.out.println();
+	}
+
+}
+
+	static void mulArr(int[][]arr1, int[][]arr2,int r,int c) {
+		int[][] a=new int[r][c];
+		for(int i=0;i<r;i++) {
+			for(int j=0;j<c;j++) {
+			a[i][j]=0;
+			for(int k=0;k<r;k++) {      //taking third variable for the dyanamic change of index between the arrays
+				a[i][j]+=arr1[i][k]*arr2[k][i];
+			}
+			System.out.print(a[i][j]+" ");
+	  }
+			System.out.println();
+	}
+		
+ }
+	
+	 static void upperTriangle(int[][] arr,int n,int m) {
+		 //boolean checker=true;
+		 for(int i=0;i<n;i++) {
+			 	for(int j=0;j<i;j++) {
+			 		if(arr[i][j]!=0) {
+			 			System.out.println("it is not an upper triangular matrix");
+			 		}
+			 		else {
+			 			System.out.println("it is an upper triangular matrix");
+			 		}
+			 }
+		}
+	 }
+	 
+	 static void transpose(int[][] arr,int n,int m) {
+		 int [][] arr2= new int[m][n];
+		 for(int i=0;i<n;i++) {
+			 for(int j=0;j<n;j++) {
+				 arr2[i][j]=arr[j][i];
+			 }
+		 }
+		 for(int i=0;i<n;i++) {
+			 for(int j=0;j<n;j++) {
+				 System.out.print(arr2[i][j]+" ");
+			 }
+			 System.out.println();
+		 }	 
+	 }
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner s=new Scanner(System.in);
+		System.out.println("enter the row and coloumn for the first matrix:");
+		int r=s.nextInt();
+		int c=s.nextInt();
+		check(r,c);
+		int arr1[][]=getArr(r,c);
+		System.out.println("enter the row and coloumn for the second matrix:");
+		int r1=s.nextInt();
+		int c1=s.nextInt();
+		int arr2[][]=getArr(r1,c1);
+		System.out.println("1.addition of the array");
+		System.out.println("2.multiplication of the array");
+		System.out.println("3.upper triangular matrix");
+		System.out.println("4.transpose of a matrix");
+		int ch=s.nextInt();
+		switch(ch) {
+		case 1:if((r==r1)&& (c==c1)) {
+			
+			addArr(arr1,arr2,r,c);
+		}
+		else {
+			System.out.println("the order of the matrices should be same to add");
+		}
+		break;
+		case 2:if((r==r1)&& (c==c1)) {
+			
+			mulArr(arr1,arr2,r,c);
+		}
+		else {
+			System.out.println("the order of the matrices should be same to multiply");
+		}
+		break;
+		case 3: upperTriangle(arr1,r,c);
+				upperTriangle(arr2,r1,c1);
+				break;
+		case 4: System.out.println("tranpose of matrix1:");
+				transpose(arr1,r,c);
+				System.out.println("tranpose of matrix1:");
+				transpose(arr2,r1,c1);
+				break;
+		
+	}
+		
+
+	}
+
+}
