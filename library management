@@ -1,0 +1,160 @@
+package dls1;
+import java.util.*;
+
+	class Book{
+		public String name;
+		public String authorName;
+		int ISBNNo;
+		int year;
+	}
+
+	class Library{
+		Scanner sc=new Scanner(System.in);
+
+		Book b1[]=new Book[3];
+		//accepting the elements
+		public void accept(){
+			for(int i=0;i<b1.length;i++) {
+				b1[i]=new Book();
+				System.out.println("enter the name of the author: ");
+				b1[i].authorName=sc.next();
+				System.out.println("enter the name of the book: ");
+				b1[i].name = sc.next();
+				System.out.println("enter the ISBN number of the book");
+				b1[i].ISBNNo=sc.nextInt();
+				
+				//System.out.println("year of publication");
+				//b1[i].year=sc.nextInt();
+				
+			}
+		
+	}
+
+	//displaying the elements
+	public void display(){
+		System.out.println("The details are as follows:");
+		for(int i=0;i<b1.length;i++) {
+			//for printing the inputs
+			System.out.println("Book Name: "+b1[i].name);
+			System.out.println("Author Name: "+b1[i].authorName);
+			System.out.println("ISBN No. : "+b1[i].ISBNNo);
+		}
+	}
+
+	//sorting the algorithm
+	//using bubble sort
+	public void Sorting(){
+		int n=b1.length;
+			if(n==1){
+				return;
+			}
+		for(int i=0;i<n-1;i++){
+			for(int j=0;j<n-1-i;j++){
+					if(b1[j+1].ISBNNo<b1[j].ISBNNo){
+							int temp=b1[j].ISBNNo;
+								b1[j].ISBNNo=b1[j+1].ISBNNo;
+									b1[j+1].ISBNNo=temp;
+							}
+		
+						}
+					}
+
+		//print the sorted array
+			System.out.println("the sorted book name : ISBN No");
+			for(int i=0;i<n;i++){
+				
+					System.out.println(b1[i].name+":"+b1[i].ISBNNo);
+				}
+			
+			
+			
+	}
+
+	//searching in the array
+	public void SearchISBN() {
+		System.out.println("enter the ISBN no to search for: ");
+		int temp=sc.nextInt();
+		int flag=0;
+		int position = 0;
+		for(int i=0;i<b1[i].ISBNNo;i++) {
+			if(temp==b1[i].ISBNNo) {
+				position=i+1;
+				flag=1;
+				break;
+			}
+		}
+		
+		if(flag==1) {
+			System.out.println("the book with ISBN No: "+temp+"was found!!");
+			System.out.println("at position: "+position);
+		}
+		else {
+			System.out.println("WRONG INPUT!!!");
+		}
+	}
+	
+	public void SearchAuthor() {
+		System.out.println("enter the Author name to search for: ");
+		String temp=sc.next();
+		int flag=0;
+		int position = 0;
+		for(int i=0;i<b1[i].ISBNNo;i++) {
+			if(temp==b1[i].authorName) {
+				position=i+1;
+				flag=1;
+				break;
+			}
+		}
+		
+		if(flag==1) {
+			System.out.println("the book with Author name: "+temp+"was found!!");
+			System.out.println("at position: "+position);
+		}
+		else {
+			System.out.println("WRONG INPUT!!!");
+		}
+	}
+
+}
+public class libManage {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("WELCOME TO THE LIBRARY MANAGEMENT");
+		Library l=new Library();
+		int ch;
+		do {
+			System.out.println("1--> Accepting the details");
+			System.out.println("2--> Displaying the details");
+			System.out.println("3--> Searching through ISBN No. the details");
+			System.out.println("4--> Searching through authors the details");
+			System.out.println("5--> Sorting through ISBN No. the details(performed using Bubble sort)");
+			System.out.println("enter the choice: ");
+			System.out.println("0--> Exit");
+			ch=sc.nextInt();
+
+			switch(ch) {
+				case 1: l.accept();
+					break;
+					
+				case 2: l.display();
+					break;
+				
+				case 3: l.SearchISBN();
+					break;
+					
+				case 4: l.SearchAuthor();
+					break;
+					
+				case 5: l.Sorting();
+					break;
+				case 6: ch=0;
+				    break;
+				
+			}
+			
+		}while(ch!=0);
+		
+	}
+
+}
