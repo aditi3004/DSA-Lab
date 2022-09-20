@@ -1,0 +1,125 @@
+BankAcc:
+package dsl3;
+
+import java.util.Scanner;
+
+public class BankAcc {
+
+	accNode head;
+	//we will keep track of the total size of the LL from the start
+	int size=0;
+	
+	Scanner s=new Scanner(System.in);
+	
+	public void create() {
+		//head=null;
+		accNode n=new accNode();
+		System.out.println("your linked list has been cretaed start inserting!!");
+		System.out.println("enter the name: ");
+		n.name=s.next();
+		
+		
+	}
+	
+	
+	public void insert(String accName,String address,int aNo,float balance) {
+		accNode n=new accNode(accName,address,aNo,balance);
+		if(head==null) {//the list is empty
+			head=n;  
+			size++;
+			return;
+		}
+		
+		//when the list is not empty
+		accNode temp=head;
+		while(temp.next!=null) {
+			temp=temp.next;
+		}
+		temp.next=n;
+		size++;
+	}
+	
+	
+	public void  delete(int accNo) {
+		if(head==null) {
+			return;
+			//list is empty so delete operation cannot be performed
+		}
+		if(head.next==null) {
+			//list has only one element
+			head=null;
+			System.out.println("list is empty after deletion of one element");
+			return;
+		}
+		accNode temp=head;
+		while(temp.accNo!=accNo) {
+			temp=temp.next;
+		}
+		if(temp.next.next==null) {
+			//if the deletion of last node is done
+			temp.next=null;
+			size--;
+		}
+		
+		temp.next=temp.next.next;
+		size--;
+	}
+	
+	//displaying the linked list
+	public void display() {
+		accNode temp=head;
+		while(temp.next!=null) {
+			System.out.println("account holder name: "+temp.name);
+			System.out.println("account holder adress: "+temp.address);
+			System.out.println("account holder account number: "+temp.accNo);
+			
+		}
+	}
+
+}
+
+
+accNode:
+package dsl3;
+
+
+
+public class accNode {
+
+	
+		//data part of the node
+		int accNo;
+		String name;
+		String address;
+		float balance;
+		//linking part of the node
+		accNode next;
+		
+		//creating a default constructor
+		public accNode() {
+			
+		}
+		
+		//creating a constructor for simpler insertion;
+		public accNode(String name,String address,int accNo,float balance) {
+			this.name=name;
+			this.address=address;
+			this.accNo=accNo;
+			this.balance=balance;
+		}
+		
+		
+	}
+
+bank:
+package dsl3;
+import java.util.*;
+public class bank{
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BankAcc b=new BankAcc();
+		
+	}
+
+}
