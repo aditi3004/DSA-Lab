@@ -1,60 +1,160 @@
-BankAcc:
+1.)Creation of the Node class
+
 package dsl3;
 
-import java.util.Scanner;
+public class accNode {
 
+	//data part of the node
+			public int accNo;
+			public String name;
+			public String address;
+			public float balance;
+			//linking part of the node
+			accNode next;
+			
+			//creating a default constructor
+			public accNode() {
+				
+			}
+			
+			//for deposition of the money accNo and balance is required as parameter
+			public accNode(int accNo,int balance) {
+				//this.accNo=accNo;
+				//this.balance=balance;
+			}
+			
+			//creating a constructor for simpler insertion;
+			public accNode(String name,String address,int accNo,float balance) {
+				this.name=name;
+				this.address=address;
+				this.accNo=accNo;
+				this.balance=balance;
+				this.next=null;
+			}
+}
+
+
+
+2.)functions
+
+package dsl3;
+import java.util.*;
 public class BankAcc {
-
+	
 	accNode head;
 	//we will keep track of the total size of the LL from the start
 	int size=0;
 	
-	Scanner s=new Scanner(System.in);
+	Scanner sc=new Scanner(System.in);
 	
 	public void create() {
 		//head=null;
 		accNode n=new accNode();
-		System.out.println("your linked list has been cretaed start inserting!!");
-		System.out.println("enter the name: ");
-		n.name=s.next();
-		
-		
-	}
-	
-	
-	public void insert(String accName,String address,int aNo,float balance) {
-		accNode n=new accNode(accName,address,aNo,balance);
-		if(head==null) {//the list is empty
-			head=n;  
+		if(head==null) {
+			head=n;
 			size++;
+			System.out.println("your linked list has been cretaed start inserting!!");
+			System.out.println("enter the name: ");
+			n.name=sc.next();
+			System.out.println("enter the address: ");
+			n.address=sc.next();
+			System.out.println("enter the account number: ");
+			n.accNo=sc.nextInt();
+			System.out.println("enter the balance amount: ");
+			n.balance=sc.nextFloat();
+			
 			return;
+			
 		}
 		
-		//when the list is not empty
 		accNode temp=head;
 		while(temp.next!=null) {
 			temp=temp.next;
 		}
 		temp.next=n;
+		n.next=null;
 		size++;
+		System.out.println("enter the name: ");
+		n.name=sc.next();
+		System.out.println("enter the address: ");
+		n.address=sc.next();
+		System.out.println("enter the account number: ");
+		n.accNo=sc.nextInt();
+		System.out.println("enter the balance amount: ");
+		n.balance=sc.nextFloat();
+		
+		
+		//since we are adding at the last in the create() method
+		
+		
 	}
 	
 	
-	public void  delete(int accNo) {
+	public void insert() {
+		//taking index input
+		System.out.println("enter the index at which insertion should happen ");
+		int index=sc.nextInt();
+		if(index>size) {
+			System.out.println("index doesnot exist!!");
+			return;
+		}
+		
+		System.out.println("account holder name: ");
+		String accName=sc.next();
+		System.out.println("enter the address: ");
+		String address=sc.next();
+		System.out.println("enter the account number: ");
+		int aNo=sc.nextInt();
+		System.out.println("enter the balance: ");
+		int balance=sc.nextInt();
+		
+		accNode n=new accNode(accName,address,aNo,balance);
+	
+		accNode temp=head;
+		
+		if(index==1) {
+			n.next=head;
+			head=n;
+			size++;
+			return;
+			
+		}
+		if(index==size) {
+			temp.next=n;
+			size++;
+			return;
+		}
+		for(int i=0;i<index;i++) {
+			temp=temp.next;
+		}
+		
+		n.next=temp.next;
+		temp.next=n;
+		size++;
+		
+	}
+	
+	//deleting the node
+	public void  delete() {
+		System.out.println("enter the account number: ");
+		int acNo=sc.nextInt();
 		if(head==null) {
 			return;
 			//list is empty so delete operation cannot be performed
 		}
+		
 		if(head.next==null) {
 			//list has only one element
 			head=null;
 			System.out.println("list is empty after deletion of one element");
 			return;
 		}
+		
 		accNode temp=head;
-		while(temp.accNo!=accNo) {
+		while(temp.accNo!=acNo) {
 			temp=temp.next;
 		}
+		
 		if(temp.next.next==null) {
 			//if the deletion of last node is done
 			temp.next=null;
@@ -65,61 +165,137 @@ public class BankAcc {
 		size--;
 	}
 	
+	//deposit of the money in account
+	public void deposit() {
+		int flag=0;
+		System.out.println("enter the account number: ");
+		int acNo=sc.nextInt();
+		System.out.println("enter the amount to be deposited: ");
+		int bal=sc.nextInt();
+		accNode temp=head;
+		while(temp!=null) {
+			if(temp.accNo==acNo) {
+				System.out.println("current balance: "+temp.balance);
+				temp.balance=temp.balance+bal;
+				flag=1;
+				System.out.println("updated balance: "+temp.balance);
+				break;
+			}
+			//we need to move ahead if the account number need not be at first position
+			temp=temp.next;
+		}
+			
+		if(flag==1) {
+			System.out.println("amount deposited succesfully!!");
+		
+		}
+		else {
+			System.out.println("Account NOT FOUND!!!");
+			
+		}
+		
+	}
+	
+	
+	//withdrawing the amount
+	public void withdraw() {
+		int flag=0;
+		System.out.println("enter the account number: ");
+		int acNo=sc.nextInt();
+		System.out.println("enter the amount to withdraw: ");
+		int withdraw=sc.nextInt();
+		accNode temp=head;
+		while(temp!=null) {
+			if(temp.accNo==acNo) {
+				if(withdraw<=temp.balance) {
+					System.out.println("current balance: "+temp.balance);
+					temp.balance=temp.balance-withdraw;
+					System.out.println("updated balance: "+temp.balance);
+					flag=1;
+					break;
+				}
+			}
+			//we need to move ahead if the account number need not be at first position
+			temp=temp.next;
+		}
+		
+		if(flag==1) {
+			System.out.println("Withdraw Successful");
+		}
+		else {
+			System.out.println("Insufficient Balance");
+		}
+		
+	}
+	
 	//displaying the linked list
 	public void display() {
 		accNode temp=head;
-		while(temp.next!=null) {
+		while(temp!=null) {//jab last element tak jaana hai tab temp!=null
+			//jab second last element tak jaana hai tab temp.next!=null;
 			System.out.println("account holder name: "+temp.name);
 			System.out.println("account holder adress: "+temp.address);
 			System.out.println("account holder account number: "+temp.accNo);
+			temp=temp.next;
 			
-		}
+		}System.out.println("size of the linked list: "+size);
 	}
 
 }
 
 
-accNode:
-package dsl3;
 
 
+3.) main class
 
-public class accNode {
-
-	
-		//data part of the node
-		int accNo;
-		String name;
-		String address;
-		float balance;
-		//linking part of the node
-		accNode next;
-		
-		//creating a default constructor
-		public accNode() {
-			
-		}
-		
-		//creating a constructor for simpler insertion;
-		public accNode(String name,String address,int accNo,float balance) {
-			this.name=name;
-			this.address=address;
-			this.accNo=accNo;
-			this.balance=balance;
-		}
-		
-		
-	}
-
-bank:
 package dsl3;
 import java.util.*;
-public class bank{
+public class bank {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
 		BankAcc b=new BankAcc();
+		String ans;
 		
+		int ch;
+		do {
+			
+			System.out.println("*****WELCOME TO BANKIBG MANAGEMENT*****");
+			System.out.println("1.to create a new account from the system");
+			System.out.println("2.display the system from the system");
+			System.out.println("3.insert a new detail from the system");
+			System.out.println("4.delete some detail from the system");
+			System.out.println("5.deposit in the account");
+			System.out.println("6.withdraw from the account");
+			//System.out.println("7.exit");
+			System.out.println("enter your choice: ");
+			ch=sc.nextInt();
+			switch(ch) {
+				case 1:b.create();
+					break;
+				case 2: b.display();
+					break;
+				case 3: b.insert();
+					break;
+				case 4: b.delete();
+					break;
+				case 5: b.deposit();
+					break;
+				case 6: b.withdraw();
+					break;
+				case 7: ch=0;
+					break;
+				
+				default: System.out.println("invalid choice!!");
+					break;
+				
+			}//System.out.println("Do you want to continue?");
+			//System.out.println("Press 1-->y(YES)");
+			//System.out.println("Press 2-->n(NO)");
+			//ans=sc.next();
+				
+		}while(ch!=0);//if we use (ans==y) it wont work because it will iterate only once
 	}
 
 }
