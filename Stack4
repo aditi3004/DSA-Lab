@@ -1,0 +1,89 @@
+package stack;
+import java.util.*;
+public class stackFunction {
+
+	class Stack {
+		Scanner sc=new Scanner(System.in);
+		int[] Stack;
+		int size;
+		int top;
+		
+		//constructor for creating a stack of required length
+		Stack(int size){
+			this.size=size;
+			this.top=-1;
+			this.Stack=new int[size];
+		}
+		
+		//underflow condition
+		public boolean isEmpty() {
+			return(top==-1);
+		}
+		
+		//overflow condition
+		public boolean isFull() {
+			return (size-1==top);
+		}
+		//push function
+		public void push(int data) {
+			if(!isFull()) {
+				top++;
+				Stack[top]=data;
+				System.out.println("data is successfuly pushed");
+			}
+			else {
+				System.out.println("the stack is full");
+			} 
+		}
+		
+		public int pop() {
+			if(!isEmpty()) {
+				int popIndex=top;
+				top--;
+				System.out.println("Poped Successfully");
+				return Stack[popIndex];
+			}
+			else {
+				System.out.println("stack is empty");
+				return -1;
+			}
+		}
+		
+		public int evaluate(String exp) {
+			Stack stk=new Stack(10);
+			int r=0;
+			char[] expArray=sc.next().toCharArray();
+			for(int i=0;i<expArray.length;i++) {
+				char ch=expArray[i];
+				if(Character.isDigit(ch)) {
+					//to check whether the character is numeric or not
+					stk.push(Character.getNumericValue(ch));
+				}
+				else {
+					int op2=stk.pop();
+					int op1=stk.pop();
+					switch(expArray[i]) {
+					case '+' :r=op1+op2;
+							  break;
+					case '-' :r=op1-op2;
+							  break;
+					case '*' : r=op1*op2;
+								break;
+					case '/'
+						
+					}
+				}
+			}
+			return -1;
+		}
+		
+	}	
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
