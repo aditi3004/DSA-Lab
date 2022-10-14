@@ -1,7 +1,7 @@
-package stack;
+package dsl4;
 import java.util.*;
+import java.util.Hashtable;
 public class stackFunction {
-
 	class Stack {
 		Scanner sc=new Scanner(System.in);
 		int[] Stack;
@@ -41,6 +41,7 @@ public class stackFunction {
 				int popIndex=top;
 				top--;
 				System.out.println("Poped Successfully");
+				System.out.println(Stack[popIndex]);
 				return Stack[popIndex];
 			}
 			else {
@@ -49,41 +50,57 @@ public class stackFunction {
 			}
 		}
 		
-		public int evaluate(String exp) {
-			Stack stk=new Stack(10);
-			int r=0;
-			char[] expArray=sc.next().toCharArray();
-			for(int i=0;i<expArray.length;i++) {
-				char ch=expArray[i];
-				if(Character.isDigit(ch)) {
-					//to check whether the character is numeric or not
-					stk.push(Character.getNumericValue(ch));
-				}
-				else {
-					int op2=stk.pop();
-					int op1=stk.pop();
-					switch(expArray[i]) {
-					case '+' :r=op1+op2;
-							  break;
-					case '-' :r=op1-op2;
-							  break;
-					case '*' : r=op1*op2;
-								break;
-					case '/'
-						
-					}
-				}
-			}
-			return -1;
-		}
 		
-	}	
+		
+	}
+	public int evaluate(String exp) {
+		Stack stk=new Stack(10);
+		int r=0;
+		char[] expArray=exp.toCharArray();
+		
+		for(int i=0;i<expArray.length;i++) {
+			char ch=expArray[i];
+			System.out.println(expArray[i]);
+			if(Character.isDigit(ch)) {
+				//to check whether the character is numeric or not
+				stk.push(Character.getNumericValue(ch));
+			}
+			else {
+				int op2=stk.pop();
+				int op1=stk.pop();
+				switch(expArray[i]) {
+				case '+' :r=op1+op2;
+						  break;
+				case '-' :r=op1-op2;
+						  break;
+				case '*' : r=op1*op2;
+							break;
+				case '/' :r=op1/op2;
+							break;
+				default: System.out.println("no option found");
+							break;
+					
+					
+				}stk.push(r);
+			}
+		}
+		return stk.pop();
+	}
 	
 	
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Scanner sc=new Scanner(System.in);
+		stackFunction s=new stackFunction();
+		System.out.println("enter the postfix expression: ");
+		String ex=sc.next();
+		s.evaluate(ex);
 	}
 
 }
+	
+	
+	
+	
+
