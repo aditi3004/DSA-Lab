@@ -1,0 +1,65 @@
+package queues;
+
+public class Pizza {
+	
+	int front,rear,size,count;
+	PizzaDetails p[];
+	
+	public Pizza(int size) {
+		this.size=size;
+		front=count=0;
+		rear=0;
+		p = new PizzaDetails[size];
+	}
+	
+	boolean isFull() {
+		return(count==size);
+	}
+	
+	boolean isEmpty() {
+		return(count==0);
+	}
+	
+	void placeOrder(String name) {
+		if(!isFull()) {
+			p[rear]=name;
+			//p[rear].pizzaSize=s;
+			//p[rear].price=price;
+			rear++;
+			count++;
+			System.out.println("succesfully enqueued");
+		}
+		else {
+			System.out.println("queue is full");
+		}
+	}
+	
+	class PizzaDetails{
+		String name;
+		char pizzaSize; //s=small;m=medium;l=large
+		int price;
+		
+		/*public PizzaDetails() {
+			
+		}
+		
+		public PizzaDetails(String name,char c,int price) {
+			this.name=name;
+			this.pizzaSize=c;
+			this.price=price;
+		}*/
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Pizza o=new Pizza(5);
+		o.placeOrder("mayo",'s', 200);
+		o.placeOrder("mayo",'m', 250);
+		o.placeOrder("mayo",'l', 300);
+		o.placeOrder("mayo",'s', 200);
+		o.placeOrder("mayo",'m', 250);
+		o.placeOrder("mayo",'s', 200);
+	}
+
+}
