@@ -1,65 +1,432 @@
-package queues;
+package Pizz;
+import java.util.*;
 
-public class Pizza {
+
+class Pizza{
+	String pizzaName;
+	char sizePizza;
+	int price;
+}
+
+class PizzaParlour{
+	Scanner s=new Scanner(System.in);
+	int front,rear,size,total;
+	//array of objects to take order in it.
+	Pizza order[];
 	
-	int front,rear,size,count;
-	PizzaDetails p[];
-	
-	public Pizza(int size) {
-		this.size=size;
-		front=count=0;
+	public PizzaParlour(int orderSize) {//queue producing class
+		front=0;
 		rear=0;
-		p = new PizzaDetails[size];
+		size=orderSize;
+		total=0;
+		//made array or order list with the 
+		order= new Pizza[orderSize];
 	}
-	
+
 	boolean isFull() {
-		return(count==size);
+		return (rear==size);
 	}
-	
+
 	boolean isEmpty() {
-		return(count==0);
+		return (front==rear);
 	}
 	
-	void placeOrder(String name) {
+	//placing order is enqueue process here
+	void placeorder() {
+		total=0;
+		order=new Pizza[3];
 		if(!isFull()) {
-			p[rear]=name;
-			//p[rear].pizzaSize=s;
-			//p[rear].price=price;
-			rear++;
-			count++;
-			System.out.println("succesfully enqueued");
+			System.out.println("^^^^^^^^^^MENU^^^^^^^^^^^");
+			System.out.println("1.GREEK PIZZA");
+			System.out.println("Small: 150 Rs");
+			System.out.println("Medium: 200 Rs");
+			System.out.println("Large: 300 Rs");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("2.PEPPERONI PIZZA");
+			System.out.println("Small: 180 Rs");
+			System.out.println("Medium: 240 Rs");
+			System.out.println("Large: 300 Rs");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("3.CHEESE PIZZA");
+			System.out.println("Small: 100 Rs");
+			System.out.println("Medium: 140 Rs");
+			System.out.println("Large: 200 Rs");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("4.VEGGIE PIZZA");
+			System.out.println("Small: 150 Rs");
+			System.out.println("Medium: 200 Rs");
+			System.out.println("Large: 300 Rs");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("5.MUSHROOM PIZZA");
+			System.out.println("Small: 200 Rs");
+			System.out.println("Medium: 250 Rs");
+			System.out.println("Large: 300 Rs");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("No of pizza you want to order: ");
+			int n=s.nextInt();
+			for(int i=1;i<=n;i++) {
+				Pizza p=new Pizza();
+                System.out.println("Enter  the serial number of Pizza: ");
+                int ch=s.nextInt();
+                //a1.pizzaName=s.next();
+                //str1.equals(str2);
+                
+                switch(ch) {
+	                case 1:
+	                p.pizzaName="GREEK PIZZA";
+	                System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+	                p.sizePizza=s.next().charAt(0);
+	                if((p.sizePizza=='s')||(p.sizePizza=='m')||(p.sizePizza=='l'))
+	                {
+	                    if(p.sizePizza=='s')
+	                    {
+	                        p.price=150;
+	                    }
+	                    else if(p.sizePizza=='m')
+	                    {
+	                        p.price=200;
+	                    }
+	                    else if(p.sizePizza=='l')
+	                    {
+	                        p.price=300;
+	                    }
+	                    order[rear++]=p;
+	                }
+	                else
+	                {
+	                    System.out.println(p.sizePizza+" size is not available.Please try again.");
+	                    break;
+	                }
+	                break;
+	                
+	                case 2: 
+	                p.pizzaName="PEPPORONI PIZZA";
+	                System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                    p.sizePizza=s.next().charAt(0);
+                    if((p.sizePizza=='s')||(p.sizePizza=='m')||(p.sizePizza=='l'))
+                    {
+                        if(p.sizePizza=='s')
+                        {
+                            p.price=180;
+                        }
+                        else if(p.sizePizza=='m')
+                        {
+                            p.price=240;
+                        }
+                        else if(p.sizePizza=='l')
+                        {
+                            p.price=300;
+                        }
+                        order[rear++]=p;
+                    }
+                    else
+                    {
+                        System.out.println(p.sizePizza+" size is not available.Please try again.");
+                        break;
+                    }
+                    break;
+                    
+	                case 3:
+	                p.pizzaName="CHEESE PIZZA";
+	                System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                    p.sizePizza=s.next().charAt(0);
+                    if((p.sizePizza=='s')||(p.sizePizza=='m')||(p.sizePizza=='l'))
+                    {
+                        if(p.sizePizza=='s')
+                        {
+                            p.price=100;
+                        }
+                        else if(p.sizePizza=='m')
+                        {
+                            p.price=140;
+                        }
+                        else if(p.sizePizza=='l')
+                        {
+                            p.price=200;
+                        }
+                        order[rear]=p;
+                        rear++;
+                    }
+                    else
+                    {
+                        System.out.println(p.sizePizza+" size is not available.Please try again.");
+                        break;
+                    }
+                    break;
+                    
+	                case 4:
+	                p.pizzaName="VEGGIE PIZZA";
+	                System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                    p.sizePizza=s.next().charAt(0);
+                    if((p.sizePizza=='s')||(p.sizePizza=='m')||(p.sizePizza=='l'))
+                    {
+                        if(p.sizePizza=='s')
+                        {
+                            p.price=150;
+                        }
+                        else if(p.sizePizza=='m')
+                        {
+                            p.price=200;
+                        }
+                        else if(p.sizePizza=='l')
+                        {
+                            p.price=300;
+                        }
+                        order[rear]=p;
+                        rear++;
+                    }
+                    else
+                    {
+                        System.out.println(p.sizePizza+" size is not available.Please try again.");
+                        break;
+                    }
+                    break;
+                    
+	                case 5:
+	                p.pizzaName="MUSHROOM PIZZA";
+	                System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                    p.sizePizza=s.next().charAt(0);
+                    if((p.sizePizza=='s')||(p.sizePizza=='m')||(p.sizePizza=='l'))
+                    {
+                        if(p.sizePizza=='s')
+                        {
+                            p.price=200;
+                        }
+                        else if(p.sizePizza=='m')
+                        {
+                            p.price=250;
+                        }
+                        else if(p.sizePizza=='l')
+                        {
+                            p.price=300;
+                        }
+                        order[rear]=p;
+                        rear++;
+                    }
+                    else
+                    {
+                        System.out.println(p.sizePizza+" size is not available.Please try again.");
+                        break;
+                    }
+                    break;
+                    
+                    default:System.out.println(p.pizzaName+" pizza is not available.Please try again.");
+                    		break;
+	                	
+                }
+                
+                /*if(a1.pizzaName=="GREEK PIZZA" || a1.pizzaName=="greek pizza")
+                {
+                        System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                        a1.sizePizza=s.next().charAt(0);
+                        if((a1.sizePizza=='s')||(a1.sizePizza=='m')||(a1.sizePizza=='l'))
+                        {
+                            if(a1.sizePizza=='s')
+                            {
+                                a1.price=150;
+                            }
+                            else if(a1.sizePizza=='m')
+                            {
+                                a1.price=200;
+                            }
+                            else if(a1.sizePizza=='l')
+                            {
+                                a1.price=300;
+                            }
+                            order[rear++]=a1;
+                        }
+                        else
+                        {
+                            System.out.println(a1.sizePizza+" size is not available.Please try again.");
+                            break;
+                        }
+                }
+                else if(a1.pizzaName.equalsIgnoreCase("PEPPORONI PIZZA"))
+                {
+                        System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                        a1.sizePizza=s.next().charAt(0);
+                        if((a1.sizePizza=='s')||(a1.sizePizza=='m')||(a1.sizePizza=='l'))
+                        {
+                            if(a1.sizePizza=='s')
+                            {
+                                a1.price=180;
+                            }
+                            else if(a1.sizePizza=='m')
+                            {
+                                a1.price=200;
+                            }
+                            else if(a1.sizePizza=='l')
+                            {
+                                a1.price=250;
+                            }
+                            order[rear++]=a1;
+                        }
+                        else
+                        {
+                            System.out.println(a1.sizePizza+" size is not available.Please try again.");
+                            break;
+                        }
+                        
+                }
+                else if(a1.pizzaName.equalsIgnoreCase("CHEESE PIZZA"))
+                {
+                        System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                        a1.sizePizza=s.next().charAt(0);
+                        if((a1.sizePizza=='s')||(a1.sizePizza=='m')||(a1.sizePizza=='l'))
+                        {
+                            if(a1.sizePizza=='s')
+                            {
+                                a1.price=100;
+                            }
+                            else if(a1.sizePizza=='m')
+                            {
+                                a1.price=140;
+                            }
+                            else if(a1.sizePizza=='l')
+                            {
+                                a1.price=200;
+                            }
+                            order[rear]=a1;
+                            rear++;
+                        }
+                        else
+                        {
+                            System.out.println(a1.sizePizza+" size is not available.Please try again.");
+                            break;
+                        }
+                        
+                }
+                else if(a1.pizzaName.equalsIgnoreCase("VEGGIE PIZZA"))
+                {
+                        System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                        a1.sizePizza=s.next().charAt(0);
+                        if((a1.sizePizza=='s')||(a1.sizePizza=='m')||(a1.sizePizza=='l'))
+                        {
+                            if(a1.sizePizza=='s')
+                            {
+                                a1.price=100;
+                            }
+                            else if(a1.sizePizza=='m')
+                            {
+                                a1.price=150;
+                            }
+                            else if(a1.sizePizza=='l')
+                            {
+                                a1.price=200;
+                            }
+                            order[rear]=a1;
+                            rear++;
+                        }
+                        else
+                        {
+                            System.out.println(a1.sizePizza+" size is not available.Please try again.");
+                            break;
+                        }
+                        
+                }
+                else if(a1.pizzaName.equalsIgnoreCase("MUSHROOM PIZZA"))
+                {
+                        System.out.println("Enter the pizza size you wish to order-(s=small,m=medium,l=large)");
+                        a1.sizePizza=s.next().charAt(0);
+                        if((a1.sizePizza=='s')||(a1.sizePizza=='m')||(a1.sizePizza=='l'))
+                        {
+                            if(a1.sizePizza=='s')
+                            {
+                                a1.price=200;
+                            }
+                            else if(a1.sizePizza=='m')
+                            {
+                                a1.price=250;
+                            }
+                            else if(a1.sizePizza=='l')
+                            {
+                                a1.price=300;
+                            }
+                            order[rear]=a1;
+                            rear++;
+                        }
+                        else
+                        {
+                            System.out.println(a1.sizePizza+" size is not available.Please try again.");
+                            break;
+                        }
+                        
+                }
+                else
+                {
+                    System.out.println(a1.pizzaName+" pizza is not available.Please try again.");
+                    break;
+                }*/
+                total=total+p.price;
+                displayOrder();
+                System.out.println("Total amount: "+total);
+               
+            }
+            
+			}
+		}
+		
+
+	
+	void displayOrder() {
+		for(int i=front;i<rear;i++) {
+			System.out.println("Pizza: "+order[i].pizzaName);
+			System.out.println("Size of the Pizza: "+order[i].sizePizza);
+			System.out.println("Price of the Pizza: "+order[i].price);
+		}
+	}
+	
+	void deliverorder() { //DEQUEUE
+		if(!isEmpty()) {
+			for(int i=front;i<rear;i++) {
+				System.out.println("ITEMS LIST:-");
+				System.out.println("Pizza: "+order[i].pizzaName);
+				System.out.println("Size of the Pizza: "+order[i].sizePizza);
+				System.out.println("Price of the Pizza: "+order[i].price);
+				front++;
+			}
+			System.out.println("total amount to be paid: "+total);
+			System.out.println();
 		}
 		else {
-			System.out.println("queue is full");
+			System.out.println("You have no orders yet");
+			System.out.println();
 		}
 	}
-	
-	class PizzaDetails{
-		String name;
-		char pizzaSize; //s=small;m=medium;l=large
-		int price;
-		
-		/*public PizzaDetails() {
-			
-		}
-		
-		public PizzaDetails(String name,char c,int price) {
-			this.name=name;
-			this.pizzaSize=c;
-			this.price=price;
-		}*/
-	}
-	
-	
+
+}
+
+
+public class Orders {
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Pizza o=new Pizza(5);
-		o.placeOrder("mayo",'s', 200);
-		o.placeOrder("mayo",'m', 250);
-		o.placeOrder("mayo",'l', 300);
-		o.placeOrder("mayo",'s', 200);
-		o.placeOrder("mayo",'m', 250);
-		o.placeOrder("mayo",'s', 200);
+		PizzaParlour p1=new PizzaParlour(1);
+		Pizza p2=new Pizza();
+        Scanner sc=new Scanner(System.in);
+        
+        int x=1,ch=0;
+        do{
+            System.out.println("\n**********MENU**********\n1.Place order for pizza\n2.Deliver order of pizza\n");
+            ch=sc.nextInt();
+            switch(ch)
+            {
+                case 1:
+                    {
+                        p1.placeorder();
+                        break;
+                    }
+                case 2:
+                    {
+                        p1.deliverorder();
+                        break;
+                    }
+                default:
+                    System.out.println("\nINVALID INPUT");
+            }
+            System.out.println("Do you want to continue ?\nPress 1 to continue\nPress 0 to exit\n");
+			x=sc.nextInt();
+        }while(x!=0);
 	}
 
 }
