@@ -1,1 +1,84 @@
 
+package dsl6;
+import java.util.*;
+class Tree{
+	int data;
+	Tree left;
+	Tree right;
+	
+	public Tree(int data) {
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+
+class BinaryTree{
+	Scanner sc=new Scanner(System.in);
+	//we check root equal to null in traversal also
+	Tree root;
+	String dir=null;
+	int nodeData;
+	 void createTree() 
+	 {
+		/*System.out.println("enter the root of the tree: ");
+		root.data=sc.nextInt();
+		Tree temp=root;**/
+		 Tree ptr;
+		System.out.println("Enter the data you want to add");
+		int d = sc.nextInt();
+		Tree temp = new Tree(d);
+		if(root==null)
+		{
+			root=temp;
+		}
+		else
+		{
+		while(temp!=null) 
+		{
+			ptr=root;
+			System.out.println("where do you want to add the node L/R of "+ptr.data);
+			dir=sc.next();
+			if(dir=="l") 
+			{
+				if(ptr.left==null) 
+				{
+					ptr.left=temp;
+				}
+				else 
+				{
+					temp=temp.left;                        
+				}
+			}
+			if(dir=="r") {
+				if(ptr.right==null) 
+				{
+					ptr.right=temp;
+				}
+				else 
+				{
+					temp=temp.right;                        
+				}
+			}
+		}
+		}
+		System.out.println("Do you want to continue Y/N");
+		char choice = sc.next().charAt(0);
+		if(choice=='Y')
+		{
+			createTree();
+		}
+		
+	}
+}
+
+public class BSTraversal {
+
+	public static void main(String[] args) {
+		BinaryTree obj = new BinaryTree();
+		obj.createTree();
+		// TODO Auto-generated method stub
+
+	}
+
+}
