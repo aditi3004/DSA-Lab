@@ -1,84 +1,86 @@
-
-package dsl6;
 import java.util.*;
-class Tree{
+
+class node{
 	int data;
-	Tree left;
-	Tree right;
+	node left;
+	node right;
 	
-	public Tree(int data) {
+	public node(int data) {
 		this.data=data;
 		this.left=null;
 		this.right=null;
 	}
 }
 
-class BinaryTree{
-	Scanner sc=new Scanner(System.in);
-	//we check root equal to null in traversal also
-	Tree root;
-	String dir=null;
-	int nodeData;
-	 void createTree() 
-	 {
-		/*System.out.println("enter the root of the tree: ");
-		root.data=sc.nextInt();
-		Tree temp=root;**/
-		 Tree ptr;
-		System.out.println("Enter the data you want to add");
-		int d = sc.nextInt();
-		Tree temp = new Tree(d);
-		if(root==null)
-		{
-			root=temp;
+ class BinaryTree{
+	public node create() {
+		Scanner s=new Scanner(System.in);
+		node root = null;
+		System.out.println("Enter data: ");
+		int data = s.nextInt();
+		
+		if(data == -1) return null;
+		
+		root = new node(data);
+		
+		System.out.println("Enter left for " + data);
+		root.left = create();
+		
+		System.out.println("Enter right for "+ data);
+		root.right = create();
+		
+		return root;
 		}
-		else
-		{
-		while(temp!=null) 
-		{
-			ptr=root;
-			System.out.println("where do you want to add the node L/R of "+ptr.data);
-			dir=sc.next();
-			if(dir=="l") 
-			{
-				if(ptr.left==null) 
-				{
-					ptr.left=temp;
-				}
-				else 
-				{
-					temp=temp.left;                        
-				}
+	
+	//1.recursive inorder traversal
+	public void recurInorder(node root) {
+		if(root == null) return;
+		
+		recurInorder(root.left);
+		System.out.print(root.data+" ");
+		recurInorder(root.right);
+	}
+	
+	//2.recursive preorder traversal
+		public void recurPreorder(node root) {
+			if(root!=null) {
+				System.out.println("null node");
+				return;
 			}
-			if(dir=="r") {
-				if(ptr.right==null) 
-				{
-					ptr.right=temp;
-				}
-				else 
-				{
-					temp=temp.right;                        
-				}
-			}
-		}
-		}
-		System.out.println("Do you want to continue Y/N");
-		char choice = sc.next().charAt(0);
-		if(choice=='Y')
-		{
-			createTree();
+			
+			System.out.println(root.data);
+			recurPreorder(root.left);
+			recurPreorder(root.right);
 		}
 		
+	//3.recursive postorder
+	public void recurPostorder(node root) {
+		if(root!=null) {
+			System.out.println("null node");
+			return;
+		}
+		
+		recurPostorder(root.left);
+		recurPostorder(root.right);
+		System.out.println(root.data);
+		
 	}
+	
+	//4.non-recursive
+		
 }
 
-public class BSTraversal {
-
-	public static void main(String[] args) {
-		BinaryTree obj = new BinaryTree();
-		obj.createTree();
-		// TODO Auto-generated method stub
-
-	}
-
-}
+	
+public class TreeCreate {
+	public static void main(String args[]) {
+		
+		BinaryTree b=new BinaryTree();
+		node root = b.create();//because create returns the root node
+		System.out.println("inorder traversal will create the following sequence: ");
+		b.recurInorder(root);
+		System.out.println("preorder traversal will create the following sequence: ");
+		b.recurPreorder(root);
+		System.out.println("postorder traversal will create the following sequence: ");
+		b.recurPostorder(root);
+	
+}}
