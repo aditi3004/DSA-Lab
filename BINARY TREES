@@ -1,3 +1,6 @@
+
+
+
 import java.util.*;
 
 class node{
@@ -43,44 +46,170 @@ class node{
 	
 	//2.recursive preorder traversal
 		public void recurPreorder(node root) {
-			if(root!=null) {
-				System.out.println("null node");
+			if(root==null) {
+				//System.out.println("null node");
 				return;
 			}
 			
-			System.out.println(root.data);
+			System.out.print(root.data+" ");
 			recurPreorder(root.left);
 			recurPreorder(root.right);
 		}
 		
-	//3.recursive postorder
-	public void recurPostorder(node root) {
-		if(root!=null) {
-			System.out.println("null node");
-			return;
+	//3.recursive post order traversal
+		public void recurPostorder(node root) {
+			if(root==null) {
+				//System.out.println("null node");
+				return;
+			}
+			
+			recurPostorder(root.left);
+			recurPostorder(root.right);
+			System.out.print(root.data+" ");
 		}
 		
-		recurPostorder(root.left);
-		recurPostorder(root.right);
-		System.out.println(root.data);
+	//4.NonRecursive inorder traversal
+		node root2=create();
+		//root2 store the root value since create function returns the actual root of the created binary tree
+		public void nonRecurInorder() {
+			if(root2==null) {
+				System.out.println("empty root node");
+			}
+			
+			Stack<node> s=new Stack<node>();
+			node curr=root2;
+			//now we are traversing the tree, size function from stack package to check the stack is not empty
+			 while (curr != null || s.size() > 0)
+		        {
+		  
+		            //Reach the left most node of the curr node 
+		            while (curr !=  null)
+		            {
+		                // place pointer to a tree node on the stack before traversing the node's left subtree 
+		            	//because we store the current node into the stack and then move ahead
+		                s.push(curr);
+		                curr = curr.left;
+		            }
+		  
+		            // Current must be NULL at this point 
+		            curr = s.pop();
+		  
+		            System.out.print(curr.data + " ");
+		  
+		            //we have visited the node and its left subtree.  Now, it's right subtree's turn 
+		            curr = curr.right;
+		        }
+			
+	}
+		
+	//5.non recursive preorder traversal
+		public void nonRecurPreorder() {
+			/*if(root==null) {
+				System.out.println("null node");
+				return;
+			}*/
+			
+			Stack<node> st = new Stack<node>();
+			while (true) {
+				// First print the root node and then add left node
+				while (root2 != null) {
+					System.out.print(root2.data + " ");
+					st.push(root2);
+					root2 = root2.left;
+				}
+				// check if Stack is empty, if yes, exit from everywhere
+				if (st.isEmpty()) {
+					return;
+				}
+				// pop the element from the stack and go right to the tree
+				root2=st.pop();
+				root2=root2.right;
+			}
+		}
+		
+	//6.non recursive post order traversal
+		public void nonRecurPostorder() {
+			Stack<node> st = new Stack<node>();
+			if (root2 == null)
+		        return;
+
+		    else {
+		        st.push(root2.right);
+		        st.push(root2);
+		        root2= root2.left;
+
+		        while (!st.isEmpty()) {
+		            while (root2 != null) {
+		            
+		            //check if root2 has a right child
+		                if (root2.right != null) {
+		                    st.push(root2.right);
+		                    st.push(root2);
+		                    root2 = root2.left;
+		                } else {
+		                    st.push(root2);
+		                    root2=root2.left;
+		                }
+		            }
+		            
+		            root2 = st.pop();
+		            if (!st.isEmpty() && root2.right != null && st.peek() == root2.right) {
+		                st.pop();
+		                st.push(root2);
+		                root2 = root2.right;
+		            } else {
+		                System.out.print(root2.data + "  ");
+		                root2 = null;
+		            }
+		        }
+		    }
+		}
+		
+		
+public class BtreeCreate {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner s=new Scanner(System.in);
+		BinaryTree b=new BinaryTree();
+		node root=b.create();
+		int no;
+		do {
+			System.out.println("Enter the choice for traversal: ");
+			System.out.println("1: RECURSIVE INORDER");
+			System.out.println("2: RECURSIVE PREORDER");
+			System.out.println("3: RECURSIVE POSTORDER");
+			System.out.println("4: NonRECURSIVE INORDER");
+			System.out.println("5: NonRECURSIVE PREORDER");
+			System.out.println("6: NonRECURSUVE POSTORDER");
+			int ch=s.nextInt();
+			switch(ch) {
+			
+			case 1: b.recurInorder(root);
+					System.out.println();
+					break;
+			case 2: b.recurPreorder(root);
+					System.out.println();
+					break;
+			case 3: b.recurPostorder(root);
+					System.out.println();
+					break;
+			case 4: b.nonRecurInorder();
+					System.out.println();
+					break;
+			case 5: b.nonRecurPreorder();
+					System.out.println();
+					break;
+			case 6: b.nonRecurPostorder();
+					System.out.println();
+					break;
+			}
+			
+			System.out.println("Do you want to continue ,1 to continue,0 to exit");
+			no=s.nextInt();
+
+		}while(no==1);
 		
 	}
-	
-	//4.non-recursive
-		
-}
 
-	
-public class TreeCreate {
-	public static void main(String args[]) {
-		
-		BinaryTree b=new BinaryTree();
-		node root = b.create();//because create returns the root node
-		System.out.println("inorder traversal will create the following sequence: ");
-		b.recurInorder(root);
-		System.out.println("preorder traversal will create the following sequence: ");
-		b.recurPreorder(root);
-		System.out.println("postorder traversal will create the following sequence: ");
-		b.recurPostorder(root);
-	
 }}
