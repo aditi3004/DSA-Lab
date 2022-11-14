@@ -69,15 +69,15 @@ class node{
 		}
 		
 	//4.NonRecursive inorder traversal
-		node root2=create();
+		
 		//root2 store the root value since create function returns the actual root of the created binary tree
-		public void nonRecurInorder() {
-			if(root2==null) {
+		public void nonRecurInorder(root) {
+			if(root==null) {
 				System.out.println("empty root node");
 			}
 			
 			Stack<node> s=new Stack<node>();
-			node curr=root2;
+			node curr=root;
 			//now we are traversing the tree, size function from stack package to check the stack is not empty
 			 while (curr != null || s.size() > 0)
 		        {
@@ -109,61 +109,50 @@ class node{
 				return;
 			}*/
 			
-			Stack<node> st = new Stack<node>();
-			while (true) {
-				// First print the root node and then add left node
-				while (root2 != null) {
-					System.out.print(root2.data + " ");
-					st.push(root2);
-					root2 = root2.left;
-				}
-				// check if Stack is empty, if yes, exit from everywhere
-				if (st.isEmpty()) {
-					return;
-				}
-				// pop the element from the stack and go right to the tree
-				root2=st.pop();
-				root2=root2.right;
+			if(root==null) {
+			System.out.println("null node");
+			return;
+		}
+		
+		Stack <node> st= new Stack<node>();
+		st.push(root);
+		while(st.empty()==false) {
+			node curr=st.peek();
+			System.out.println(curr.data);
+			st.pop();
+			if(curr.right!=null) {
+				st.push(curr.right);
+			}
+			if(curr.left!=null) {
+				st.push(curr.left);
 			}
 		}
 		
 	//6.non recursive post order traversal
-		public void nonRecurPostorder() {
+		public void nonRecurPostorder(root) {
 			Stack<node> st = new Stack<node>();
-			if (root2 == null)
-		        return;
+			boolean check = true;
+			while(true){
+			    while(root != null && check){
+				st.push(root);
+				root = root.left;
+			  }
+			    if(st.empty()) break;
 
-		    else {
-		        st.push(root2.right);
-		        st.push(root2);
-		        root2= root2.left;
+			    if(root != st.peek().right){
+				root = st.peek().right;
+				check = true;
+				continue;
+			  }
 
-		        while (!st.isEmpty()) {
-		            while (root2 != null) {
-		            
-		            //check if root2 has a right child
-		                if (root2.right != null) {
-		                    st.push(root2.right);
-		                    st.push(root2);
-		                    root2 = root2.left;
-		                } else {
-		                    st.push(root2);
-		                    root2=root2.left;
-		                }
-		            }
-		            
-		            root2 = st.pop();
-		            if (!st.isEmpty() && root2.right != null && st.peek() == root2.right) {
-		                st.pop();
-		                st.push(root2);
-		                root2 = root2.right;
-		            } else {
-		                System.out.print(root2.data + "  ");
-		                root2 = null;
-		            }
-		        }
-		    }
-		}
+			    root = st.pop();
+			    System.out.print(root.data + " ");
+			    check = false;
+            
+        }
+		
+		    
+}
 		
 		
 public class BtreeCreate {
