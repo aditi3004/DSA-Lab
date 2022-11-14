@@ -72,33 +72,24 @@ class node{
 		
 		//root2 store the root value since create function returns the actual root of the created binary tree
 		public void nonRecurInorder(root) {
-			if(root==null) {
-				System.out.println("empty root node");
-			}
-			
-			Stack<node> s=new Stack<node>();
-			node curr=root;
-			//now we are traversing the tree, size function from stack package to check the stack is not empty
-			 while (curr != null || s.size() > 0)
-		        {
-		  
-		            //Reach the left most node of the curr node 
-		            while (curr !=  null)
-		            {
-		                // place pointer to a tree node on the stack before traversing the node's left subtree 
-		            	//because we store the current node into the stack and then move ahead
-		                s.push(curr);
-		                curr = curr.left;
-		            }
-		  
-		            // Current must be NULL at this point 
-		            curr = s.pop();
-		  
-		            System.out.print(curr.data + " ");
-		  
-		            //we have visited the node and its left subtree.  Now, it's right subtree's turn 
-		            curr = curr.right;
-		        }
+			if (root == null)
+           			 return;
+  
+			Stack<node> s = new Stack<node>();
+			node curr = root;
+			// traverse the tree
+			while (curr != null || s.size() > 0)
+			{
+			    while (curr !=  null)
+			    {
+				s.push(curr);
+				curr = curr.left;
+			    }
+
+			    curr = s.pop();
+			    System.out.print(curr.data + " ");
+			    curr = curr.right;
+			 }
 			
 	}
 		
