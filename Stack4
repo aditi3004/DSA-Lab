@@ -1,6 +1,5 @@
 package dsl4;
 import java.util.*;
-import java.util.Hashtable;
 public class stackFunction {
 	class Stack {
 		Scanner sc=new Scanner(System.in);
