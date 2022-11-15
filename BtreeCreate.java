@@ -1,5 +1,4 @@
-
-
+package dsl6;
 
 import java.util.*;
 
@@ -71,7 +70,7 @@ class node{
 	//4.NonRecursive inorder traversal
 		
 		//root2 store the root value since create function returns the actual root of the created binary tree
-		public void nonRecurInorder(root) {
+		public void nonRecurInorder(node root) {
 			if (root == null)
            			 return;
   
@@ -94,7 +93,7 @@ class node{
 	}
 		
 	//5.non recursive preorder traversal
-		public void nonRecurPreorder() {
+		public void nonRecurPreorder(node root) {
 			/*if(root==null) {
 				System.out.println("null node");
 				return;
@@ -118,9 +117,10 @@ class node{
 				st.push(curr.left);
 			}
 		}
+	}
 		
 	//6.non recursive post order traversal
-		public void nonRecurPostorder(root) {
+		public void nonRecurPostorder(node root) {
 			Stack<node> st = new Stack<node>();
 			boolean check = true;
 			while(true){
@@ -142,10 +142,9 @@ class node{
             
         }
 		
-		    
-}
-		
-		
+	}
+	
+ }
 public class BtreeCreate {
 
 	public static void main(String[] args) {
@@ -165,22 +164,28 @@ public class BtreeCreate {
 			int ch=s.nextInt();
 			switch(ch) {
 			
-			case 1: b.recurInorder(root);
+			case 1: System.out.println("inorder: ");
+					b.recurInorder(root);
 					System.out.println();
 					break;
-			case 2: b.recurPreorder(root);
+			case 2: System.out.println("preorder: ");
+					b.recurPreorder(root);
 					System.out.println();
 					break;
-			case 3: b.recurPostorder(root);
+			case 3: System.out.println("postorder: ");
+					b.recurPostorder(root);
 					System.out.println();
 					break;
-			case 4: b.nonRecurInorder();
+			case 4: System.out.println("NON Recurive inorder: ");
+					b.nonRecurInorder(root);
 					System.out.println();
 					break;
-			case 5: b.nonRecurPreorder();
+			case 5: System.out.println("NON Recursive preorder: ");
+					b.nonRecurPreorder(root);
 					System.out.println();
 					break;
-			case 6: b.nonRecurPostorder();
+			case 6: System.out.println("NON Recursive postorder: ");
+					b.nonRecurPostorder(root);
 					System.out.println();
 					break;
 			}
@@ -191,5 +196,6 @@ public class BtreeCreate {
 		}while(no==1);
 		
 	}
+ }
 
-}}
+
