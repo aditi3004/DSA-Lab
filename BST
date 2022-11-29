@@ -1,0 +1,130 @@
+
+
+
+package dslab7;
+import java.util.*;
+
+class dictNode{
+	String word;
+	String meaning;
+	dictNode left;
+	dictNode right;
+	
+	public dictNode(String keyword,String meaning) {
+		this.word=keyword;
+		this.meaning=meaning;
+		this.left=null;
+		this.right=null;
+	}
+	public dictNode(String keyword) {
+		this.word=keyword;
+		this.left=null;
+		this.right=null;
+	}
+	
+}
+
+class BST{
+	Scanner sc=new Scanner(System.in);
+	String keyword,meaning;
+	dictNode root;
+	
+	//creation + insertion
+	public dictNode insert() {
+		System.out.println("enter the keyword: ");
+		keyword=sc.next();
+		System.out.println("enter the meaning of the keyword: ");
+		meaning=sc.next();
+		dictNode temp=new dictNode(keyword,meaning);
+		if(root==null) {
+			root=temp;
+			return root;
+		}
+		else {
+			dictNode ptr=root;
+			while(ptr!=null) {
+				if(temp.word.compareTo(ptr.word)<0) {
+					if(ptr.left==null) {
+						ptr.left=temp;
+					}
+					else ptr=ptr.left;
+				}
+				
+				else if(temp.word.compareTo(ptr.word)>0) {
+					if(ptr.right==null) {
+						ptr.right=temp;
+					}
+					else ptr=ptr.right;
+				}
+			}
+			System.out.println("do you want to enter more keyword in to the dictionary?");
+			System.out.println("type: YES=y  OR  NO= n");
+			String ch=sc.next();
+			if(ch=="y") {
+				insert();
+			}
+			else return root;
+		}
+		return root;
+	}
+	
+	// display of the tree
+	public void inorder(dictNode root) {
+		if(root==null) {
+			System.out.println("empty dictionary!!");
+			return;
+		}
+		
+		inorder(root.left);
+		System.out.println("keyword: "+root.word+"    "+"meaning: "+root.meaning);
+		inorder(root.right);
+	}
+	
+	//search of a word in dictionary
+	public boolean search(String keyword) {
+		dictNode ptr=root;
+		dictNode temp= new dictNode(keyword); 
+		while(ptr!=null) {
+			if(temp.word.compareTo(ptr.word)<0) {
+				ptr=ptr.left;
+			}
+			else if(temp.word.compareTo(ptr.word)>0) {
+				ptr=ptr.right;
+			}
+			else {
+				System.out.println("keyword found");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//update the tree
+	public void update() {
+		int flag=0;
+		System.out.println("enter the new keyword: ");
+		keyword=sc.next();
+		System.out.println("enter the meaning: ");
+		meaning=sc.next();
+		dictNode temp=new dictNode(keyword,meaning);
+		dictNode ptr=root;
+		while(ptr!=null) {
+			if(keyword.equals(ptr.word)) {
+				flag=1;
+				break;
+			}
+			if(keyword.compareTo(ptr.word)<0) {
+				
+			}
+		}
+	}
+	
+}
+public class dictionary {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
