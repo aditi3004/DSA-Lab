@@ -2,6 +2,9 @@
 
 
 package dslab7;
+
+
+
 import java.util.*;
 
 class dictNode{
@@ -46,6 +49,7 @@ class BST{
 				if(temp.word.compareTo(ptr.word)<0) {
 					if(ptr.left==null) {
 						ptr.left=temp;
+						break;
 					}
 					else ptr=ptr.left;
 				}
@@ -53,31 +57,46 @@ class BST{
 				else if(temp.word.compareTo(ptr.word)>0) {
 					if(ptr.right==null) {
 						ptr.right=temp;
+						break;
 					}
 					else ptr=ptr.right;
 				}
+				
+				else {
+					System.out.println("wrong direction input!");
+				}
 			}
-			System.out.println("do you want to enter more keyword in to the dictionary?");
-			System.out.println("type: YES=y  OR  NO= n");
-			String ch=sc.next();
-			if(ch=="y") {
-				insert();
-			}
-			else return root;
+		
+			
 		}
+		
+		
+		System.out.println("do you want to enter more keyword in to the dictionary?");
+		System.out.println("type: YES=y  OR  NO= n");
+		String ch=sc.next();
+		if(ch=="y") {
+			insert();
+		}
+		else {
+			return root;
+		}
+		
+	
 		return root;
 	}
 	
 	// display of the tree
 	public void inorder(dictNode root) {
 		if(root==null) {
-			System.out.println("empty dictionary!!");
+			System.out.println("empty dictionary!!**");
 			return;
 		}
 		
-		inorder(root.left);
-		System.out.println("keyword: "+root.word+"    "+"meaning: "+root.meaning);
-		inorder(root.right);
+		else {
+			inorder(root.left);
+			System.out.println("keyword: "+root.word+"    "+"meaning: "+root.meaning);
+			inorder(root.right);
+		}
 	}
 	
 	//search of a word in dictionary
@@ -114,17 +133,105 @@ class BST{
 				break;
 			}
 			if(keyword.compareTo(ptr.word)<0) {
-				
+				ptr=ptr.left;
 			}
+			else {
+				ptr=ptr.right;
+			}
+		}
+		
+		if(flag==1) {
+			ptr.meaning=temp.meaning;
+		}
+		else {
+			System.out.println("no data found");
 		}
 	}
 	
-}
-public class dictionary {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	//deletion of  a node in dictionary
+	
+	public dictNode delete (dictNode root,String keyword) {
+		if(root.word.compareTo(keyword)>0) {
+			root.left=delete(root.left,keyword);
+		}
+		else if(root.word.compareTo(keyword)<0) {
+			root.right=delete(root.right,keyword);
+		}
+		
+		else {
+			//case1 : leaf node deletion
+			if(root.left==null && root.right==null) {
+				return null;
+			}
+			
+			//case2: node with only one child
+			else if(root.left==null) {
+				return root.right;
+			}
+			else if(root.right==null) {
+				return root.left;
+			}
+			
+			//case 3 with more than one child
+			dictNode temp=inorderSucc(root.right);
+			root.word=temp.word;
+			root.right=delete(root.right,temp.word);
+		}
+		
+		return root;
+	
 	}
-
+	
+	public dictNode inorderSucc(dictNode root) {
+		while(root.left!=null) {
+			root=root.left;
+		}
+		
+		return root;
+	}
+	
 }
+
+
+public class dictionary {
+	public static void main(String args[]) {
+		Scanner sc=new Scanner(System.in);
+		BST b= new BST();
+		int ch,ch1;
+		
+		
+		do {
+			System.out.println("***********MENU*********");
+			System.out.println("0.create");
+			System.out.println("1.display");
+			System.out.println("2.search");
+			System.out.println("3.update");
+			System.out.println("4.delete");
+			System.out.println("enter your choice: ");
+			ch=sc.nextInt();
+			switch(ch) {
+			case 0:b.root=b.insert();
+				System.out.println("root.word: "+b.root.word);
+				break;
+				
+			case 1:System.out.println("root.word: "+b.root.word);
+				b.inorder(b.root);
+				break;
+			
+			case 2: b.search("person");
+				break;
+			
+			case 3: b.update();
+				break;
+				
+			case 4: b.delete(b.root, "person");
+				break;
+			
+			}
+			System.out.println("press 1=continue or 0=exit");
+			System.out.println("do u want to continue: ");
+			ch1=sc.nextInt();
+		}while(ch1!=0);
+	}
+}
+
