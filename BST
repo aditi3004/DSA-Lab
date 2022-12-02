@@ -100,7 +100,9 @@ class BST{
 	}
 	
 	//search of a word in dictionary
-	public boolean search(String keyword) {
+	public boolean search() {
+		System.out.println("enter the keyword");
+		keyword=sc.next();
 		dictNode ptr=root;
 		dictNode temp= new dictNode(keyword); 
 		while(ptr!=null) {
@@ -115,6 +117,7 @@ class BST{
 				return true;
 			}
 		}
+		System.out.println("no data found");
 		return false;
 	}
 	
